@@ -9,8 +9,8 @@ Specific class to integrate Codeception-based test framework with Report Portal 
                 "reportportal/codeception": "1.0.x-dev"
             },
 ```
-OR
-        1.2) Execute command:
+###### OR
+1.2) Execute command:
 ```
             composer require reportportal/codeception 1.0.x-dev
 ```
