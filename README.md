@@ -22,4 +22,4 @@ extensions:
             launchName: test launch name !!!
             launchDescription: test launch description !!!
 
-3) Execute 'composer update' command. 
+3) Execute 'composer update' command.
