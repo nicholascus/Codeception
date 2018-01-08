@@ -8,7 +8,7 @@ To use agent-php-Codeception:
         "reportportal/codeception": "1.0.x-dev"
     },
 
-    OR
+OR
 
 1.2) Execute command:
     composer require reportportal/codeception 1.0.x-dev
