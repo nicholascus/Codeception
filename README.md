@@ -8,9 +8,9 @@ To use agent-php-Codeception:
         "reportportal/codeception": "1.0.x-dev"
     },
 
-OR
+    OR
 
-composer require reportportal/codeception 1.0.x-dev
+    composer require reportportal/codeception 1.0.x-dev
 
 2) Update codeception.yml file of your test framework according to codeception.yml file in this repository.
 
