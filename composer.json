@@ -16,7 +16,7 @@
 			"role" : "Developer"
 		}
 	],
-	"minimum-stability": "stable",
+	"minimum-stability": "dev",
 	"require" : {
 		"reportportal/basic" : "1.0.x-dev",
 		"codeception/codeception": "2.4.*",
