@@ -16,11 +16,11 @@
 			"role" : "Developer"
 		}
 	],
-	"minimum-stability": "stable",
+	"minimum-stability": "dev",
 	"require" : {
 		"reportportal/basic" : "1.0.x-dev",
-		"codeception/codeception": "2.3.6",
-        "codeception/base": "2.3.6"
+		"codeception/codeception": "2.4.*",
+        "codeception/base": "2.4.*"
 	},
 	"autoload" : {
 		"classmap" : [
