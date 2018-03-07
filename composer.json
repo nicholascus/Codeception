@@ -18,6 +18,8 @@
 	],
 	"minimum-stability": "dev",
 	"require" : {
+		"codeception/codeception": "*",
+    		"codeception/base": "*",
 		"reportportal/basic" : "1.0.x-dev"
 	},
 	"autoload" : {
