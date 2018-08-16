@@ -14,6 +14,7 @@ Use as an example: https://github.com/Mikalai-Kabzar/Codeception-test-framework-
                 "reportportal/codeception": "1.0.x-dev"
             },
 ```
+Use as an example: https://github.com/Mikalai-Kabzar/Codeception-test-framework-for-Yandex/blob/master/composer.json
 ###### OR
 #### 1.2) Execute command:
 ```
@@ -38,7 +39,7 @@ Use as an example: https://github.com/Mikalai-Kabzar/Codeception-test-framework-
             launchDescription: test launch description !!!
         ...
  ```
-
+Use as an example: https://github.com/Mikalai-Kabzar/Codeception-test-framework-for-Yandex/blob/master/codeception.yml
 #### 3) Execute command:
 ```
             composer update
