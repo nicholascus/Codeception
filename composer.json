@@ -16,7 +16,6 @@
 			"role" : "Developer"
 		}
 	],
-	"minimum-stability": "stable",
 	"require" : {
 		"codeception/codeception": "*",
     		"codeception/base": "*",
