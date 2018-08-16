@@ -8,7 +8,7 @@
 		"Report Portal",
 		"Codeception"
 	],
-	"homepage" : "https://github.com/Mikalai-Kabzar/agent-php-Codeception",
+	"homepage" : "https://github.com/Mikalai-Kabzar/ReportPortal-Codeception",
 	"license" : "MIT",
 	"authors" : [{
 			"name" : "Kabzar Mikalai",
