@@ -1,5 +1,5 @@
 {
-	"name" : "reportportal/codeception",
+	"name" : "mkabzar/codeception",
 	"type" : "library",
 	"description" : "Specific classes to integrate Codeception-based test framework with Report Portal (http://reportportal.io/).",
 	"keywords" : [
