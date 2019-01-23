@@ -1,44 +1,36 @@
 {
-	"name" : "reportportal/codeception",
-	"type" : "library",
-	"description" : "Specific classes to integrate Codeception-based test framework with Report Portal (http://reportportal.io/).",
-	"keywords" : [
-		"Report",
-		"Reporting",
-		"Report Portal",
-		"Codeception"
-	],
-	"homepage" : "https://github.com/Mikalai-Kabzar/agent-php-Codeception",
-	"license" : "MIT",
-	"authors" : [{
-			"name" : "Kabzar Mikalai",
-			"email" : "loki.engine@mail.ru",
-			"role" : "Developer"
-		}
-	],
-        "repositories": [
-            {
-                "type": "package",
-                "package": {
-                    "name": "reportportal/basic",
-                    "version": "1.0-dev",
-                    "source": {
-                        "url": "https://github.com/nicholascus/client-php.git",
-                        "type": "git",
-                        "reference": "1.0-dev"
-                    }
-                }
-            }
-        ],
-	"minimum-stability": "stable",
-	"require" : {
-		"codeception/codeception": "*",
-    		"codeception/base": "*",
-		"reportportal/basic" : "1.0-dev"
-	},
-	"autoload" : {
-		"classmap" : [
-			"src/"
-		]
-	}
+    "name": "nicholascus/rp-agent-codeception",
+    "type": "library",
+    "description": "Specific classes to integrate Codeception-based test framework with Report Portal (http://reportportal.io/).",
+    "keywords": [
+        "Report",
+        "Reporting",
+        "Report Portal",
+        "Codeception"
+    ],
+    "homepage": "https://github.com/Mikalai-Kabzar/agent-php-Codeception",
+    "license": "MIT",
+    "authors": [{
+            "name": "Kabzar Mikalai",
+            "email": "loki.engine@mail.ru",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/nicholascus/rp-agent-basic.git"
+        }
+    ],
+	"minimum-stability": "dev",
+    "require": {
+        "codeception/codeception": "*",
+        "codeception/base": "*",
+        "nicholascus/rp-agent-basic" : "dev-master"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    }
 }
