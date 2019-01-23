@@ -16,11 +16,25 @@
 			"role" : "Developer"
 		}
 	],
+        "repositories": [
+            {
+                "type": "package",
+                "package": {
+                    "name": "reportportal/basic",
+                    "version": "1.0-dev",
+                    "source": {
+                        "url": "https://github.com/nicholascus/client-php.git",
+                        "type": "git",
+                        "reference": "1.0-dev"
+                    }
+                }
+            }
+        ],
 	"minimum-stability": "stable",
 	"require" : {
 		"codeception/codeception": "*",
     		"codeception/base": "*",
-		"reportportal/basic" : "1.0.x-dev"
+		"reportportal/basic" : "1.0-dev"
 	},
 	"autoload" : {
 		"classmap" : [
