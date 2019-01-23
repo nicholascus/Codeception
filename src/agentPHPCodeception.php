@@ -132,28 +132,84 @@ class agentPHPCodeception extends \Codeception\Platform\Extension
     public function beforeTest(TestEvent $e)
     {
         $this->stepCounter = 0;
-        $testName = $e->getTest()->getMetadata()->getName();
-
-        /**
-         * Create string with params of test
-         */
-        $stringWithParams = '';
-        $arrayWithParams = $e->getTest()->getMetadata()->getCurrent();
-        if (array_key_exists(self::EXAMPLE_JSON_WORD, $arrayWithParams)) {
-            $exampleParams = $arrayWithParams[self::EXAMPLE_JSON_WORD];
-            foreach ($exampleParams as $key => $value) {
-                $stringWithParams = $stringWithParams . $value . '; ';
-            }
-            if (!empty($stringWithParams)) {
-                $stringWithParams = substr($stringWithParams, 0, -2);
-                $stringWithParams = ' (' . $stringWithParams . ')';
-            }
+        $description = $this->testName = $this->buildTestName($e->getTest());
+        $currentExample = $e->getTest()->getMetadata()->getCurrent();
+        if ($currentExample && isset($currentExample[self::EXAMPLE_JSON_WORD]) ) {
+            $exampleParams = $currentExample[self::EXAMPLE_JSON_WORD];
+            array_walk_recursive ( $exampleParams, [self::class, 'utf8_array_replacer']);
+            $description = json_encode($exampleParams, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
-
-        $this->testName = $testName . $stringWithParams;
-        $this->testDescription = $stringWithParams;
+        $this->testDescription = str_replace("\\\"", "\"", json_encode($description, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
         $response = self::$httpService->startChildItem($this->rootItemID, $this->testDescription, $this->testName, ItemTypesEnum::TEST, []);
         $this->testItemID = self::getID($response);
+    }
+
+    /**
+     * https://stackoverflow.com/questions/1401317/remove-non-utf8-characters-from-string
+     * @var string
+     */
+    static $regex = <<<'END'
+/
+  (
+    (?: [\x00-\x7F]               # single-byte sequences   0xxxxxxx
+    |   [\xC0-\xDF][\x80-\xBF]    # double-byte sequences   110xxxxx 10xxxxxx
+    |   [\xE0-\xEF][\x80-\xBF]{2} # triple-byte sequences   1110xxxx 10xxxxxx * 2
+    |   [\xF0-\xF7][\x80-\xBF]{3} # quadruple-byte sequence 11110xxx 10xxxxxx * 3
+    ){1,100}                      # ...one or more times
+  )
+| ( [\x80-\xBF] )                 # invalid byte in range 10000000 - 10111111
+| ( [\xC0-\xFF] )                 # invalid byte in range 11000000 - 11111111
+/x
+END;
+
+    public static function utf8_array_replacer(&$value, $key) {
+        $value = self::to_utf8($value);
+    }
+
+    public static function utf8replacer($captures) {
+        if ($captures[1] != "") {
+            // Valid byte sequence. Return unmodified.
+            return $captures[1];
+        } elseif ($captures[2] != "") {
+            // Invalid byte of the form 10xxxxxx.
+            // Encode as 11000010 10xxxxxx.
+            return "\xC2".$captures[2];
+        } else {
+            // Invalid byte of the form 11xxxxxx.
+            // Encode as 11000011 10xxxxxx.
+            return "\xC3".chr(ord($captures[3])-64);
+        }
+    }
+
+    protected static function to_utf8($s) {
+        if (!is_string($s)) {
+            return $s;
+        }
+        try {
+            return mb_convert_encoding($s, "UTF-8", "auto");
+        } catch (\Exception $e) {
+            return preg_replace_callback(self::$regex, [self::class,"utf8replacer"], $s);
+        }
+    }
+
+    private $testInvocations = array();
+    private function buildTestName($test) {
+        $testName = $test->getName();
+        if ($test instanceof \Codeception\Test\Cest) {
+            $testName = get_class($test->getTestClass()) . '::' . $testName;
+            if(isset($this->testInvocations[$testName])) {
+                $this->testInvocations[$testName]++;
+            } else {
+                $this->testInvocations[$testName] = 0;
+            }
+            $currentExample = $test->getMetadata()->getCurrent();
+            if ($currentExample && isset($currentExample['example']) ) {
+                $testName .= ' with data set #' . $this->testInvocations[$testName];
+            }
+        } else if($test instanceof Gherkin) {
+            $testName = $test->getMetadata()->getFeature();
+        }
+        return $testName;
     }
 
     /**
