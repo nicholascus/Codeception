@@ -336,7 +336,7 @@ class agentPHPCodeception extends \Codeception\Platform\Extension
      * @param bool $isFailedItem
      * @return string
      */
-    private static function getStatusByBool(bool $isFailedItem)
+    private static function getStatusByBool($isFailedItem)
     {
         if ($isFailedItem) {
             $stringItemStatus = ItemStatusesEnum::FAILED;
@@ -369,4 +369,3 @@ class agentPHPCodeception extends \Codeception\Platform\Extension
     }
 }
 
-?>
